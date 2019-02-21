@@ -74,6 +74,53 @@ example(of: "never") {
     )
 }
 
+
+//Challenge 1: Perform side effects
+example(of: "challenge 1") {
+    let observable = Observable<Any>.never()
+
+    let disposeBag = DisposeBag()
+
+    observable
+        .do(onSubscribe: {
+        print("subscribed")
+    })
+    .subscribe(
+        onNext: { element in
+            print(element)
+    },
+        onCompleted: {
+            print("Completed")
+    },
+        onDisposed: {
+            print("Disposed")
+    })
+    .disposed(by: disposeBag)
+
+}
+
+
+example(of: "challenge 2") {
+    let observable = Observable<Any>.never()
+
+    let disposeBag = DisposeBag()
+
+    observable
+        .debug("observable")
+        .subscribe(
+            onNext: { element in
+                print(element)
+        },
+            onCompleted: {
+                print("Completed")
+        },
+            onDisposed: {
+                print("Disposed")
+        })
+        .disposed(by: disposeBag)
+
+}
+
 example(of: "range") {
     let observable = Observable<Int>.range(start: 1, count: 10)
     observable.subscribe(
@@ -178,9 +225,20 @@ example(of: "Single") {
                 single(.error(FileReadError.encodingFailed))
                 return disposable
             }
-            
+
             single(.success(contents))
             return disposable
         }
     }
+
+    loadText(from: "Copyright")
+        .subscribe{
+            switch $0 {
+            case .success(let string):
+                print(string)
+            case .error(let error):
+                print(error)
+            }
+        }
+        .disposed(by: disposeBag)
 }
