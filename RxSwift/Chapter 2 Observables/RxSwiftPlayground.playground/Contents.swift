@@ -24,7 +24,6 @@
 
 import RxSwift
 
-
 example(of: "just, of, from") {
     let one = 1
     let two = 2
@@ -78,7 +77,6 @@ example(of: "never") {
 //Challenge 1: Perform side effects
 example(of: "challenge 1") {
     let observable = Observable<Any>.never()
-
     let disposeBag = DisposeBag()
 
     observable
@@ -102,7 +100,6 @@ example(of: "challenge 1") {
 
 example(of: "challenge 2") {
     let observable = Observable<Any>.never()
-
     let disposeBag = DisposeBag()
 
     observable
