@@ -164,7 +164,6 @@ example(of: "Challenge 1. PublishSubject") {
 
 
 example(of: "Challenge 2. Variable") {
-
     enum UserSession {
         case loggedIn, loggedOut
     }
@@ -220,7 +219,6 @@ example(of: "Challenge 2. Variable") {
                 print(error!)
                 return
             }
-
             print("User logged in.")
         }
 
