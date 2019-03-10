@@ -63,7 +63,24 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func actionSave() {
-
+        guard let image = imagePreview.image else {
+            return
+        }
+        //Save the current collage
+        PhotoWriter.save(image)
+        //convert the returned Observable to a Single
+        .asSingle()
+        /*
+             asSingle() ensures that you get at most one element by throwing an error
+            if the source sequence emits more than one
+             */
+            .subscribe(onSuccess: { [weak self] id in
+                self?.showMessage("Saved with id: \(id)")
+                self?.actionClear()
+                }, onError: { [weak self] error in
+                    self?.showMessage("Error", description: error.localizedDescription)
+            })
+        .disposed(by: bag)
     }
 
     @IBAction func actionAdd() {
