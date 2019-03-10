@@ -68,12 +68,6 @@ class MainViewController: UIViewController {
         }
         //Save the current collage
         PhotoWriter.save(image)
-        //convert the returned Observable to a Single
-        .asSingle()
-        /*
-             asSingle() ensures that you get at most one element by throwing an error
-            if the source sequence emits more than one
-             */
             .subscribe(onSuccess: { [weak self] id in
                 self?.showMessage("Saved with id: \(id)")
                 self?.actionClear()
